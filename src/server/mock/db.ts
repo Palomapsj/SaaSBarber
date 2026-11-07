@@ -52,11 +52,15 @@ export type MockDb = {
 };
 
 function dbFile(): string | null {
-  if (process.env.NODE_ENV === "test") return null;
-  return resolve(process.cwd(), process.env.MOCK_DB_FILE || ".data/mock-db.json");
+  if (process.env.NODE_ENV === "test" || !fileWritable) return null;
+  // On Vercel only /tmp can be written (per instance, erased from time to time): fine for a demo.
+  const fallback = process.env.VERCEL ? "/tmp/mock-db.json" : ".data/mock-db.json";
+  return resolve(process.cwd(), process.env.MOCK_DB_FILE || fallback);
 }
 
 let memory: MockDb | null = null;
+/** Turns false after a failed write: from then on the data lives in memory only. */
+let fileWritable = true;
 
 export function readDb(): MockDb {
   const file = dbFile();
@@ -68,7 +72,7 @@ export function readDb(): MockDb {
     }
     const fresh = initialDb();
     writeDb(fresh);
-    return fresh;
+    if (fileWritable) return fresh;
   }
   memory ??= initialDb();
   return memory;
@@ -82,7 +86,8 @@ export function writeDb(db: MockDb): void {
     mkdirSync(dirname(file), { recursive: true });
     writeFileSync(file, JSON.stringify(db, null, 2));
   } catch {
-    // Read-only file system (e.g. serverless): keep the data in memory.
+    // Read-only file system: keep the data in memory from now on.
+    fileWritable = false;
   }
 }
 
