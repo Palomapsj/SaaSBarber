@@ -3,11 +3,26 @@ import { handleMockApi } from "@/server/mock/router";
 import { ApiError, readApiResponse } from "@/lib/api/http";
 import type { Barber, Barbershop, PanelRole, PanelUser, ServiceCatalog } from "@/lib/api/types";
 
-// API calls made on the server (pages, server actions). Today they reach the mock API directly,
+// API calls made on the server (pages, server actions). Locally they reach the mock API directly,
 // without going through HTTP; for the .NET API they become fetch(`${API_URL}…`).
 
+/**
+ * On Vercel, pages, server actions and /api/mock run as separate functions, each with its own
+ * copy of the mock data. Going through /api/mock over HTTP keeps one copy (e.g. a barber created
+ * by the admin can log in).
+ */
+function deployedMockApi(): string | null {
+  if (!process.env.VERCEL) return null;
+  const host =
+    process.env.VERCEL_ENV === "production" ? process.env.VERCEL_PROJECT_PRODUCTION_URL : process.env.VERCEL_URL;
+  return host ? `https://${host}/api/mock` : null;
+}
+
 async function serverRequest<T>(path: string, init: RequestInit = {}): Promise<T> {
-  const response = await handleMockApi(new Request(`http://mock.local/api/mock${path}`, init));
+  const remote = deployedMockApi();
+  const response = remote
+    ? await fetch(`${remote}${path}`, { ...init, cache: "no-store" })
+    : await handleMockApi(new Request(`http://mock.local/api/mock${path}`, init));
   return readApiResponse<T>(response);
 }
 
