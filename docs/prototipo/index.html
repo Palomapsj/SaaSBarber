@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrar · Barbearia Nova Era</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Work+Sans:wght@400;500;600&display=swap');
+
+:root, [data-theme="dark"] {
+  --bg: #121212; --card:#1D1D1D; --card2:#242424; --text:#F2F2F2; --muted:#9A9A9A; --muted2:#6E6E6E;
+  --border:#2C2C2C; --accent:#E3242B; --accent-soft:rgba(227,36,43,0.16); --on-accent:#FFFFFF;
+  --success:#3DDC84; --success-soft:rgba(61,220,132,0.16);
+}
+[data-theme="light"] {
+  --bg:#F7F5F2; --card:#FFFFFF; --card2:#F0ECE7; --text:#1A1816; --muted:#6E6862; --muted2:#9C948C;
+  --border:#E4DED6; --accent:#E3242B; --accent-soft:rgba(227,36,43,0.10); --on-accent:#FFFFFF;
+  --success:#1D9A5C; --success-soft:rgba(29,154,92,0.12);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); }
+body { font-family: 'Work Sans', system-ui, sans-serif; color: var(--text); }
+a { color: var(--accent); text-decoration: none; }
+button { font-family: 'Work Sans', system-ui, sans-serif; cursor: pointer; }
+input, select { font-family: 'Work Sans', system-ui, sans-serif; }
+
+/* mobile (client) pages: full height, centered column on wide viewports */
+.mobile-page { min-height: 100vh; width: 100%; max-width: 480px; margin: 0 auto; background: var(--bg); display: flex; flex-direction: column; }
+@media (min-width: 481px) {
+  .mobile-page { min-height: 100vh; box-shadow: 0 0 40px rgba(0,0,0,0.25); }
+}
+
+/* desktop (admin/barbeiro) pages */
+.desktop-page { min-height: 100vh; width: 100%; background: var(--bg); display: flex; }
+
+/* theme toggle sun/moon visibility */
+[data-theme="dark"] .icon-moon { display: none; }
+[data-theme="light"] .icon-sun { display: none; }
+
+.link-btn { display:block; text-align:center; }
+
+</style>
+</head>
+<body data-theme="dark">
+<div data-theme="dark" class="desktop-page" style="align-items:center; justify-content:center; position:relative; padding: 24px;">
+  <div style="position:absolute; top:24px; right:32px;">
+    <button onclick="toggleTheme()" aria-label="Alternar modo claro/escuro" style="width:36px; height:36px; border-radius:999px; border:1px solid var(--border); background:var(--card); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+      <span class="icon-sun">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="stroke:var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </span>
+      <span class="icon-moon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="stroke:var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg>
+      </span>
+    </button>
+  </div>
+
+  <div style="width:380px; max-width:100%; display:flex; flex-direction:column; align-items:center; gap: 20px;">
+    <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+      <div style="width:52px; height:52px; border-radius:14px; background:var(--accent); display:flex; align-items:center; justify-content:center;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" style="stroke:var(--on-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+      </div>
+      <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:18px; color:var(--text); text-transform:uppercase; text-align:center;">Barbearia Nova Era</div>
+      <div style="font-size:13px; color:var(--muted);">Acesso ao sistema</div>
+    </div>
+
+    <div style="width:100%; display:flex; gap:6px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:4px;">
+      <button type="button" class="role-btn" data-role="cliente" onclick="selectRole('cliente')" style="flex:1; padding:10px 0; border-radius:9px; border:none; font-size:11px; font-weight:700;">Sou Cliente</button>
+      <button type="button" class="role-btn" data-role="barbeiro" onclick="selectRole('barbeiro')" style="flex:1; padding:10px 0; border-radius:9px; border:none; font-size:11px; font-weight:700;">Sou Barbeiro</button>
+      <button type="button" class="role-btn" data-role="admin" onclick="selectRole('admin')" style="flex:1; padding:10px 0; border-radius:9px; border:none; font-size:11px; font-weight:700;">Sou Admin</button>
+    </div>
+    <div style="font-size:11px; color:var(--muted); text-align:center; margin-top:-8px;">Seletor só para navegar pelo protótipo — no app real o perfil já vem definido no login.</div>
+
+    <div style="width:100%; background:var(--card); border:1px solid var(--border); border-radius:18px; padding: 26px; display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <label for="login" style="font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px;">Telefone ou e-mail</label>
+        <input id="login" name="login" type="text" placeholder="(11) 90000-0000" style="padding: 12px 14px; border-radius:10px; border:1px solid var(--border); background:var(--card); color:var(--text); font-size:14px; outline:none;">
+      </div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <label for="senha" style="font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px;">Senha</label>
+        <input id="senha" name="senha" type="password" placeholder="••••••••" style="padding: 12px 14px; border-radius:10px; border:1px solid var(--border); background:var(--card); color:var(--text); font-size:14px; outline:none;">
+      </div>
+      <a href="#" style="font-size:12px; color:var(--muted); text-align:right;">Esqueci minha senha</a>
+      <a id="entrar-btn" href="cliente/inicio.html" style="width:100%; padding: 14px 0; border-radius: 12px; border: none; background: var(--accent); color: var(--on-accent); font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; text-align:center; display:block;">Entrar</a>
+    </div>
+    <div style="font-size:12px; color:var(--muted);">Primeiro acesso? <a href="#">Peça o convite ao dono da barbearia</a></div>
+  </div>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  var saved = localStorage.getItem('bne-theme');
+  if (saved) root.setAttribute('data-theme', saved);
+  window.toggleTheme = function () {
+    var current = root.getAttribute('data-theme') || 'dark';
+    var next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('bne-theme', next);
+  };
+})();
+
+</script>
+<script>
+  var ROLE_HREFS = { cliente: 'cliente/inicio.html', barbeiro: 'barbeiro/agenda.html', admin: 'admin/agenda.html' };
+  function selectRole(role) {
+    document.querySelectorAll('.role-btn').forEach(function (btn) {
+      var active = btn.getAttribute('data-role') === role;
+      btn.style.background = active ? 'var(--accent)' : 'transparent';
+      btn.style.color = active ? 'var(--on-accent)' : 'var(--muted)';
+    });
+    document.getElementById('entrar-btn').setAttribute('href', ROLE_HREFS[role]);
+  }
+  selectRole('cliente');
+</script>
+</body>
+</html>

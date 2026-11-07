@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+/* Design tokens: the only place colors are defined (see CLAUDE.md). Dark is the default. */
+:root,
+[data-theme="dark"] {
+  --bg: #121212;
+  --card: #1d1d1d;
+  --card2: #242424;
+  --text: #f2f2f2;
+  --muted: #9a9a9a;
+  --muted2: #6e6e6e;
+  --border: #2c2c2c;
+  --accent: #e3242b;
+  --accent-soft: rgba(227, 36, 43, 0.16);
+  --on-accent: #ffffff;
+  --success: #3ddc84;
+  --success-soft: rgba(61, 220, 132, 0.16);
+  /* Admin agenda cards (prototype admin/agenda.html); same in both themes. */
+  --event-1: #e3242b;
+  --event-2: #4fa3e3;
+  --event-3: #e3b324;
+  --event-4: #8b5cf6;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: #f7f5f2;
+  --card: #ffffff;
+  --card2: #f0ece7;
+  --text: #1a1816;
+  --muted: #6e6862;
+  --muted2: #9c948c;
+  --border: #e4ded6;
+  --accent: #e3242b;
+  --accent-soft: rgba(227, 36, 43, 0.1);
+  --on-accent: #ffffff;
+  --success: #1d9a5c;
+  --success-soft: rgba(29, 154, 92, 0.12);
+  color-scheme: light;
+}
+
+/* `dark:` follows the data-theme attribute instead of the OS preference. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-card2: var(--card2);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-muted2: var(--muted2);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-event-1: var(--event-1);
+  --color-event-2: var(--event-2);
+  --color-event-3: var(--event-3);
+  --color-event-4: var(--event-4);
+
+  --shadow-page: 0 0 40px rgba(0, 0, 0, 0.25);
+
+  --font-display: var(--font-oswald), sans-serif;
+  --font-body: var(--font-work-sans), system-ui, sans-serif;
+}
+
+/* Content column on tablet/desktop (≥ 768px): full width up to 1100px, centered. */
+@utility content-width {
+  width: 100%;
+  @media (width >= 48rem) {
+    max-width: 1100px;
+    margin-inline: auto;
+  }
+}
+
+/* Inside the base layer so component utilities (e.g. font-display on a button) win. */
+@layer base {
+  html,
+  body {
+    background: var(--bg);
+  }
+
+  body {
+    color: var(--text);
+    font-family: var(--font-body);
+    /* The prototype uses the browser default line height; Tailwind's preflight sets 1.5. */
+    line-height: normal;
+  }
+
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}

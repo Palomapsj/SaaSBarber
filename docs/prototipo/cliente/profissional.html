@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profissional · Barbearia Nova Era</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Work+Sans:wght@400;500;600&display=swap');
+
+:root, [data-theme="dark"] {
+  --bg: #121212; --card:#1D1D1D; --card2:#242424; --text:#F2F2F2; --muted:#9A9A9A; --muted2:#6E6E6E;
+  --border:#2C2C2C; --accent:#E3242B; --accent-soft:rgba(227,36,43,0.16); --on-accent:#FFFFFF;
+  --success:#3DDC84; --success-soft:rgba(61,220,132,0.16);
+}
+[data-theme="light"] {
+  --bg:#F7F5F2; --card:#FFFFFF; --card2:#F0ECE7; --text:#1A1816; --muted:#6E6862; --muted2:#9C948C;
+  --border:#E4DED6; --accent:#E3242B; --accent-soft:rgba(227,36,43,0.10); --on-accent:#FFFFFF;
+  --success:#1D9A5C; --success-soft:rgba(29,154,92,0.12);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); }
+body { font-family: 'Work Sans', system-ui, sans-serif; color: var(--text); }
+a { color: var(--accent); text-decoration: none; }
+button { font-family: 'Work Sans', system-ui, sans-serif; cursor: pointer; }
+input, select { font-family: 'Work Sans', system-ui, sans-serif; }
+
+/* mobile (client) pages: full height, centered column on wide viewports */
+.mobile-page { min-height: 100vh; width: 100%; max-width: 480px; margin: 0 auto; background: var(--bg); display: flex; flex-direction: column; }
+@media (min-width: 481px) {
+  .mobile-page { min-height: 100vh; box-shadow: 0 0 40px rgba(0,0,0,0.25); }
+}
+
+/* desktop (admin/barbeiro) pages */
+.desktop-page { min-height: 100vh; width: 100%; background: var(--bg); display: flex; }
+
+/* theme toggle sun/moon visibility */
+[data-theme="dark"] .icon-moon { display: none; }
+[data-theme="light"] .icon-sun { display: none; }
+
+.link-btn { display:block; text-align:center; }
+
+</style>
+
+</head>
+<body data-theme="dark">
+<div data-theme="dark" class="mobile-page">
+<div style="flex:1; display: flex; flex-direction: column;">
+  <div style="padding: 20px 20px 0;">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <a href="servicos.html" aria-label="Voltar" style="width: 36px; height: 36px; border-radius: 999px; border: none; background: var(--card); display: flex; align-items: center; justify-content: center;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </a>
+      <div style="font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text);">Profissional</div>
+      <button onclick="toggleTheme()" aria-label="Alternar modo claro/escuro" style="width:36px; height:36px; border-radius:999px; border:1px solid var(--border); background:var(--card); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+      <span class="icon-sun">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="stroke:var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </span>
+      <span class="icon-moon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="stroke:var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg>
+      </span>
+    </button>
+    </div>
+    </div>
+    <div style="display:flex; gap:5px; justify-content:center; padding: 10px 24px 0;"><div style="width: 6px; height: 6px; border-radius: 999px; background: var(--border);"></div><div style="width: 18px; height: 6px; border-radius: 999px; background: var(--accent);"></div><div style="width: 6px; height: 6px; border-radius: 999px; background: var(--border);"></div><div style="width: 6px; height: 6px; border-radius: 999px; background: var(--border);"></div><div style="width: 6px; height: 6px; border-radius: 999px; background: var(--border);"></div></div>
+  <div style="padding: 18px 20px; display:flex; flex-direction:column; gap: 10px;">
+    <button style="display:flex; align-items:center; gap:14px; width:100%; text-align:left; padding: 14px; background:var(--card); border:1.5px dashed var(--border); border-radius: 14px;">
+      <div style="width:44px; height:44px; border-radius:999px; background:var(--card2); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="stroke:var(--text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 00-3-3.87"></path><path d="M16 3.13a4 4 0 010 7.75"></path></svg>
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:14px; font-weight:600; color:var(--text);">Qualquer profissional</div>
+        <div style="font-size:12px; color:var(--muted);">Mais horários disponíveis</div>
+      </div>
+    </button>
+    <button style="display:flex; align-items:center; gap:14px; width:100%; text-align:left; padding: 14px; background:var(--card); border:1px solid var(--accent); border-radius: 14px;">
+      <div style="width:44px; height:44px; border-radius:999px; background:var(--accent); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Oswald',sans-serif; font-weight:700; font-size:14px; color:var(--on-accent);">CA</div>
+      <div style="flex:1;">
+        <div style="font-size:14px; font-weight:600; color:var(--text);">Carlos Andrade</div>
+        <div style="font-size:12px; color:var(--muted);">Corte · Barba</div>
+      </div>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="stroke:var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </button>
+    <button style="display:flex; align-items:center; gap:14px; width:100%; text-align:left; padding: 14px; background:var(--card); border:1px solid var(--border); border-radius: 14px;">
+      <div style="width:44px; height:44px; border-radius:999px; background:var(--card2); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Oswald',sans-serif; font-weight:700; font-size:14px; color:var(--text);">RA</div>
+      <div style="flex:1;">
+        <div style="font-size:14px; font-weight:600; color:var(--text);">Rafael Alves</div>
+        <div style="font-size:12px; color:var(--muted);">Corte · Sobrancelha</div>
+      </div>
+      
+    </button>
+    <button style="display:flex; align-items:center; gap:14px; width:100%; text-align:left; padding: 14px; background:var(--card); border:1px solid var(--border); border-radius: 14px;">
+      <div style="width:44px; height:44px; border-radius:999px; background:var(--card2); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Oswald',sans-serif; font-weight:700; font-size:14px; color:var(--text);">DI</div>
+      <div style="flex:1;">
+        <div style="font-size:14px; font-weight:600; color:var(--text);">Diego Ibra</div>
+        <div style="font-size:12px; color:var(--muted);">Barba · Barboterapia</div>
+      </div>
+      
+    </button>
+  </div>
+  <div style="flex: 1;"></div>
+  <div style="padding: 16px 20px 24px;">
+    <a href="data-horario.html" style="width: 100%; padding: 16px 0; border-radius: 12px; border: none; background: var(--accent); color: var(--on-accent); font-family: 'Oswald', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Continuar</a>
+    </div>
+</div>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  var saved = localStorage.getItem('bne-theme');
+  if (saved) root.setAttribute('data-theme', saved);
+  window.toggleTheme = function () {
+    var current = root.getAttribute('data-theme') || 'dark';
+    var next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('bne-theme', next);
+  };
+})();
+
+</script>
+</body>
+</html>
